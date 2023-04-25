@@ -19,6 +19,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseStaticFiles(); // used to serve static files
+app.UseCors("CorsPolicy");
 app.UseAuthorization();
 
 app.MapControllers();

@@ -15,6 +15,22 @@ namespace Infrastructure.Data
                 query = query.Where(spec.Criteria); // c => c.productId == id which is criteria
             }
 
+            if (spec.OrderBy != null)
+            {
+                query = query.OrderBy(spec.OrderBy); // c => c.productId == id which is criteria
+            }
+
+            if (spec.OrderByDescending != null)
+            {
+                query = query.OrderByDescending(spec.OrderByDescending); // c => c.productId == id which is criteria
+            }
+
+            // paging should be there after all the filtering if not it wont work the filtering
+            if (spec.IsPagingEnabled)
+            {
+                query = query.Skip(spec.Skip).Take(spec.Take);
+            }
+
             query = spec.Includes.Aggregate(query, (current, include) => current.Include(include));
 
             return query;
